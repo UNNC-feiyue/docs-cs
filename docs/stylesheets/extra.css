@@ -1,0 +1,11 @@
+.md-typeset h1 {
+  font-weight: 900 !important; /* 极粗 */
+}
+
+.md-typeset h2 {
+  font-weight: 700 !important; /* 较粗 */
+}
+
+.md-typeset h3 {
+  font-weight: 600 !important; /* 普通加粗 */
+}
