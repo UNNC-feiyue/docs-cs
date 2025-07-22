@@ -1,0 +1,8 @@
+site_name: UNNC CS Flyer 2025
+
+nav:
+  - Home: index.md
+  - ACSE@IC-SGS: about.md
+
+theme:
+  name: material
