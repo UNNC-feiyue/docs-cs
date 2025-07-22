@@ -1,8 +1,42 @@
-site_name: UNNC CS Feiyue
+site_name: 宁波诺丁汉大学飞跃手册
+# site_url: 
+site_author: UNNC Feiyue Team
+copyright: 'Copyright &copy; 2025 UNNC Feiyue Team'
+
+repo_name: UNNC-feiyue
+repo_url: https://github.com/UNNC-feiyue/
 
 theme:
   name: material
-  # custom_dir: overrides
+  # custom_dir: docs/overrides
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Switch to light mode
+  # features:
+  font:
+    text: 'Fira Sans'
+    code: 'Fira Mono'
+  # include_search_page: false
+  # search_index_only: false
+  icon:
+    repo: fontawesome/brands/github
+
+markdown_extensions:
+  - toc:
+      permalink: true
+      toc_depth: 2
 
 extra_css:
   - stylesheets/extra.css

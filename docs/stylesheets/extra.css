@@ -1,3 +1,15 @@
+[data-md-color-scheme="default"] {
+  --md-primary-fg-color: #10263B;
+  --md-accent-fg-color:  #66C3DA;
+  --md-typeset-a-color:  #009BC1;
+}
+
+[data-md-color-scheme="slate"] {
+  --md-primary-fg-color: #10263B;
+  --md-accent-fg-color:  #66C3DA;
+  --md-typeset-a-color:  #009BC1;
+}
+
 .md-typeset h1 {
   font-weight: 900 !important; /* 极粗 */
 }
