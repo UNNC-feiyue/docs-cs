@@ -38,10 +38,6 @@ GRE：320+4
 
 2024-2025 毕设AI项目Android-Based Multi-Constraint Intelligent Scheduling for Amateur Sports Competitions
 
-### 荣誉奖项Awards：
-
-
-
 ## 申请结果 Application Results
 
 ### Admission：

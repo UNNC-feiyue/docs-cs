@@ -38,10 +38,6 @@ GRE：无
 
 大三GRP项目
 
-### 荣誉奖项Awards：
-
-无
-
 
 
 ## 申请结果 Application Results

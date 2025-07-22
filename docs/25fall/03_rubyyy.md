@@ -22,10 +22,6 @@ GRE：329 (160+169) +4.0
 
 ## 个人经历 Personal Academic Experiences
 
-### 科研经历 Research Experiences：
-
-0
-
 ### 实习经历 Internship Experiences：
 
 使用在申请中的：博世南京 数字化 2024.7-
@@ -36,7 +32,7 @@ GRE：329 (160+169) +4.0
 
 实习中做过一个软开方向和一个供应链方向的
 
-### 荣誉奖项Awards：
+### 荣誉奖项 Awards：
 
 2022-2023学年 院长奖学金
 

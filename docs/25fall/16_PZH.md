@@ -38,7 +38,7 @@ GRE：无
 
 2024 Detection and tracking system for autonomous vehicles
 
-### 荣誉奖项Awards：
+### 荣誉奖项 Awards：
 
 2022学年 Ningbo 2+2 Scholarship for Year Academic Excellence 
 

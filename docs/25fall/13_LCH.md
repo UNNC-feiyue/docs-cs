@@ -22,10 +22,6 @@ GRE：无
 
 ## 个人经历 Personal Academic Experiences
 
-### 科研经历 Research Experiences：
-
-NA
-
 ### 实习经历 Internship Experiences：
 
 2023年 中国电信 软件研发中心 为期两个月
@@ -38,7 +34,7 @@ NA
 
 2024年 NUS SoC Summer Workshop
 
-### 荣誉奖项Awards：
+### 荣誉奖项 Awards：
 
 2023-2025学年 2+2学费减免奖学金
 

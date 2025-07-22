@@ -34,7 +34,7 @@ GRE：321+2.5
 
 GRP是和UK游戏公司合作制作经典游戏的抽象层实现
 
-### 荣誉奖项Awards：
+### 荣誉奖项 Awards：
 
 2021-2022 学年 Dean's Scholarship
 

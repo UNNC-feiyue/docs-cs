@@ -36,10 +36,6 @@ GRE：无
 
 大四FYP
 
-### 荣誉奖项Awards：
-
-无
-
 ## 申请结果 Application Results
 
 ### Admission：

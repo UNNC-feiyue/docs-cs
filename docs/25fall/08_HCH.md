@@ -28,17 +28,13 @@ GRE：无
 
 大二暑研和学期内科研的学长老师接着做了行为识别ML相关的项目，蹭了一篇影响因子蛮高的刊的三作
 
-### 实习经历 Internship Experiences：
-
-无
-
 ### 项目经历 Project Experiences：
 
 GRP 做的UE5游戏
 
 FYP 可解释的游戏AI，申请时没做完所以也没有用到文书和CV里
 
-### 荣誉奖项Awards：
+### 荣誉奖项 Awards：
 
 大一 Dean's scholarship
 

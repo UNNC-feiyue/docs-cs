@@ -46,7 +46,7 @@ Link需要梯子访问：https://shaotengke.notion.site/
 
 2023年 NUS SoC Summer Workshop游戏开发方向，制作独立游戏: "Alien Odyssey: Cthulhu's Awakening" (Supervisor: Prof. Kelvin Sung)
 
-### 荣誉奖项Awards：
+### 荣誉奖项 Awards：
 
 2024-2025年 Distinguished FYP Award (申请时没有)
 

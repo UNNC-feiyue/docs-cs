@@ -32,10 +32,6 @@ SJTU Institute of Parallel and Distributed Systems (IPADS)-开源贡献
 
 NeurlPS (在投n作) *SafeFlow: A Principled Protocol for Trustworthy and Transactional Autonomous Agent Systems* 
 
-### 实习经历 Internship Experiences：
-
-N/A
-
 ### 项目经历 Project Experiences：
 
 2023-2024 GRP project: Online Virtual Dressing Room
@@ -49,7 +45,7 @@ N/A
 
 2024-2025 FYP: PowerInfer-SYCL: Heterogeneous Inference Acceleration for Sparse LLM
 
-### 荣誉奖项Awards：
+### 荣誉奖项 Awards：
 
 2022学年 Dean’s Scholarship
 

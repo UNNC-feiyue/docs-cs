@@ -28,7 +28,7 @@ GRE：
 
 ### 项目经历 Project Experiences：
 
-### 荣誉奖项Awards：
+### 荣誉奖项 Awards：
 
 
 
