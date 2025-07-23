@@ -46,12 +46,10 @@ GRE：325 (V158+Q167+A3.5)
 
 ## 申请结果 Application Results
 
-### Admission：
-
-### Waitlist
-
-### Rejection：
-
+| 项目 | 结果 | 提交日期 | 结果日期 |
+| --- | --- | --- | --- |
+| MSIS@NEU | :green_circle: Admit | 11.30 | 1.14 |
+| [CM@CornellTech](../../programs/US/CornellTech/CM@CornellTech.md) | :green_circle: Admit | 1.4 | 2.5 |
 
 
 ## 申请经验 Application Experience Sharing
@@ -60,8 +58,7 @@ GRE：325 (V158+Q167+A3.5)
 
 我个人的选项目的原则是“在自己喜欢的地方学自己想学的东西”，所以先挑地区城市再看项目的课程内容和培养方向。由于我对AIML不是非常有兴趣，传统CS在课程上对我的吸引力较差，我转而更多考虑了Information Systems 的几个项目，这样可以上更多HCI，UI/UX，甚至是一些MBA相关的课程（如下图），就业目标也从SDE扩大到Software PM这一块，与我的FYP项目、专业兴趣、硕士项目更加贴合。另外再选择专业/项目时建议多多参考往届飞跃手册或xhs分享中的申请时间线，不要把宝全压在出结果非常拖拉（包括但不限于offer从2月发到5月还没全部发完结果）的项目/学院上，以今年为例：Columbia Fu Engineering, CMU Engineering, USC, USCD等。
 
-![ZYH image 1](../img/25fall/zyh_1.png)
-
+![IS programs curriculum breakdown](./img/ZYH_1.png)
 
 ### 标化成绩准备：
 
@@ -75,7 +72,7 @@ GRE：325 (V158+Q167+A3.5)
 
 我认为尽早确定研究生项目的导向非常重要：如果以后要读PhD或继续做科研则在本科阶段尽可能积累科研经验，最好能有1-2篇产出；如果已就业为导向则可以吧重点放在实习或项目上，在精而不在多，2-3段可以展开详细讨论自己贡献与成长的经历远比6-7段止步于简历上的几行字来的宝贵。另外不论是科研还是实习，其内容和申请项目方向的匹配度也很重要，如果能在大二就确定自己未来的方向剩下两年的准备就能更加的有针对性。以下是我（推荐）的时间线，仅供参考。
 
-![ZYH image 2](../img/25fall/zyh_2.png)
+![Application timeline recommendation](./img/ZYH_2.png)
 
 ### 其他建议：
 

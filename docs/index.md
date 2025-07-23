@@ -1,4 +1,9 @@
-# Welcome to MkDocs
+---
+hide:
+  - navigation
+---
+
+# 欢迎来到宁波诺丁汉大学飞跃手册
 
 For full documentation visit [mkdocs.org](https://www.mkdocs.org).
 

@@ -24,7 +24,16 @@ theme:
       toggle:
         icon: material/toggle-switch-off-outline
         name: Switch to light mode
-  # features:
+  features:
+    - toc.follow
+    - navigation.indexes
+    - navigation.instant
+    - navigation.instant.prefetch
+    - navigation.path
+    - navigation.sections
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.top
   font:
     text: 'Fira Sans'
     code: 'Fira Mono'
@@ -34,6 +43,12 @@ theme:
     repo: fontawesome/brands/github
 
 markdown_extensions:
+  - attr_list
+  - md_in_html
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - tables
   - toc:
       permalink: true
       toc_depth: 2
@@ -42,23 +57,18 @@ extra_css:
   - stylesheets/extra.css
 
 nav:
-  - Home: index.md
-  - 25fall:
-      - Overview: 25fall/overview.md
-      - 01: 25fall/01_炒点土豆吃.md
-      - 02: 25fall/02_CJR.md
-      - 03: 25fall/03_rubyyy.md
-      - 04: 25fall/04_FTTF.md
-      - 05: 25fall/05_GQY.md
-      - 06: 25fall/06_GMY.md
-      - 07: 25fall/07_HK.md
-      - 08: 25fall/08_HCH.md
-      - 09: 25fall/09_HZK.md
-      - 10: 25fall/10_Iridescent.md
-      - 11: 25fall/11_透明的熊.md
-      - 12: 25fall/12_KST.md
-      - 25: 25fall/25_陈志祥.md
-      - 36: 25fall/36_ZYH.md
-      - 39: 25fall/39_ZLK.md
-
-
+  - Home: 
+    - index.md
+  - Applications:
+    - applications/index.md
+    - 2025 Fall:
+      - SGS / ACSE@IC: applications/2025Fall/18_SGS.md
+      - ZYH / CM@CornellTech: applications/2025Fall/36_ZYH.md
+  - Programs:
+    - programs/index.md
+    - US:
+      - CornellTech:
+        - CM@CornellTech: programs/US/CornellTech/CM@CornellTech.md
+    - UK:
+      - IC:
+        - ACSE@IC: programs/UK/IC/ACSE@IC.md

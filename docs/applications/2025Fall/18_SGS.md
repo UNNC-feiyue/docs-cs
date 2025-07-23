@@ -57,11 +57,10 @@ GRE：322 + 4.0
 
 ## 申请结果 Application Results
 
-### Admission：
+| 项目 | 结果 | 提交日期 | 结果日期 |
+| --- | --- | --- | --- |
+| [ACSE@IC](../../programs/UK/IC/ACSE@IC.md) | :green_circle: Admit | 11.4 | 12.6 |
 
-### Waitlist
-
-### Rejection：
 
 ## 申请经验 Application Experience Sharing
 
