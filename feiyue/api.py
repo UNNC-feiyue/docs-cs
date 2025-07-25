@@ -3,31 +3,23 @@ import json
 
 import requests
 
-server = "cloud.seatable.io"
-base_token = None
-base_uuid = None
+SERVER = "cloud.seatable.io"
 
 
-def generate_base_token(api_key: str) -> None:
+def get_base_token_uuid(api_key: str) -> tuple[str, str]:
     response = requests.get(
-        f"https://{server}/api/v2.1/dtable/app-access-token/",
+        f"https://{SERVER}/api/v2.1/dtable/app-access-token/",
         headers={"Accept": "application/json", "Authorization": f"Bearer {api_key}"}
     )
     if response.status_code != 200:
         raise Exception(f"Failed to generate base token: {response.status_code} {response.text}")
 
-    data = response.json()
-    global base_token, base_uuid
-    base_token = data["access_token"]
-    base_uuid = data["dtable_uuid"]
+    return response.json()["access_token"], response.json()["dtable_uuid"]
 
 
-def get_metadata() -> dict:
-    if not base_token or not base_uuid:
-        raise Exception("Base Token or UUID not generated yet.")
-
+def get_metadata(base_token: str, base_uuid: str) -> dict:
     response = requests.get(
-        f"https://{server}/api-gateway/api/v2/dtables/{base_uuid}/metadata/",
+        f"https://{SERVER}/api-gateway/api/v2/dtables/{base_uuid}/metadata/",
         headers={"Accept": "application/json", "Authorization": f"Bearer {base_token}"}
     )
     if response.status_code != 200:
@@ -36,16 +28,13 @@ def get_metadata() -> dict:
     return response.json()
 
 
-def get_all_rows(table_name: str) -> dict:
-    if not base_token or not base_uuid:
-        raise Exception("Base Token or UUID not generated yet.")
-
+def get_all_rows(table_name: str, base_token: str, base_uuid: str) -> dict:
     start = 0
-    limit = 100
+    limit = 1000
     rows = {}
     while True:
         response = requests.get(
-            f"https://{server}/api-gateway/api/v2/dtables/{base_uuid}/rows/",
+            f"https://{SERVER}/api-gateway/api/v2/dtables/{base_uuid}/rows/",
             headers={"Accept": "application/json", "Authorization": f"Bearer {base_token}"},
             params={
                 "table_name": table_name,
@@ -75,9 +64,9 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--api-key", type=str, required=True)
     args = parser.parse_args()
-    generate_base_token(args.api_key)
+    token, uuid = get_base_token_uuid(args.api_key)
 
-    metadata = get_metadata()
+    metadata = get_metadata(token, uuid)
     result = {}
     for data in metadata['metadata']['tables']:
         table = data['name']
