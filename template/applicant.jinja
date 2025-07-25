@@ -1,0 +1,39 @@
+# {{ student.student_choice[0].display_value }} – {{ student.student_name }}
+
+## 基本信息 Basic Information
+
+本科专业：{{ student.student_major }}
+
+申请学位：TBC
+
+领域偏好：{{ student.student_area }}
+
+最终去向：{{ student.student_choice[0].display_value }}
+
+
+## 申请三维 Application Information
+
+均分（大一/大二/大三）：{% if student.student_gpa %}{{ student.student_gpa }}{% else %}N/A{% endif %}
+
+语言成绩：{% if student.student_lang %}{{ student.student_lang }}{% else %}N/A{% endif %}
+
+GRE：{% if student.student_gre %}{{ student.student_gre }}{% else %}N/A{% endif %}
+
+
+## 申请结果 Application Results
+
+### Admission：
+
+### Waitlist
+
+### Rejection：
+
+
+## 个人经历 Personal Academic Experiences
+
+{{ student.student_experience }}
+
+
+## 申请经验 Application Experience Sharing
+
+{{ student.student_sharing }}
