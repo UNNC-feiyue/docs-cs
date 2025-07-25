@@ -1,21 +1,14 @@
 import argparse
 
-import api
+from feiyue import db
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--api-key", type=str, required=True)
+    parser.add_argument("--api-key", type=str, default=None)
+    parser.add_argument("--source", choices=["cloud", "cache"], default="cache")
     args = parser.parse_args()
 
-    token, uuid = api.get_base_token_uuid(args.api_key)
-    print("[INFO] Step 1/1: Fetching records from SeaTable database...")
-    universities = api.get_all_rows("University", token, uuid)
-    print(f"Got {len(universities)}\t university entries")
-    programs = api.get_all_rows("Program", token, uuid)
-    print(f"Got {len(programs)}\t program entries")
-    students = api.get_all_rows("Student", token, uuid)
-    print(f"Got {len(students)}\t student entries")
-    applications = api.get_all_rows("Application", token, uuid)
-    print(f"Got {len(applications)}\t application entries")
+    print("[INFO] Step 1/1: Getting records from database...")
+    db.get_records(args.api_key, args.source)
 
-    print("\n[SUCCESS] All records downloaded")
+    print("\n[SUCCESS]")
