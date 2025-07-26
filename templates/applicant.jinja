@@ -22,10 +22,11 @@ GRE：{{ student.gre or "N/A" }}
 
 | 项目 | 结果 | 提交日期 | 结果日期 |
 | --- | --- | --- | --- |
-{% for application in student.applications -%}
-{%- set application = applications[application.row_id] -%}
-{%- set program = programs[application.program[0].row_id] -%}
+{%- for application in student.applications %}
+{%- set application = applications[application.row_id] %}
+{%- set program = programs[application.program[0].row_id] %}
 | {{ loop.index }}. [{{ program.abbrv }}](../programs/{{ program.p_id }}.md) | {{ status[application.result] }} | {{ application.submit_date or "" }} | {{ application.result_date or "" }} |
-{% endfor %}
+{%- endfor %}
+
 {{ student.experience }}
 {{ student.sharing }}

@@ -4,8 +4,8 @@
 
 | 申请人 | 申请学位 | 最终去向 | 领域偏好 |
 | --- | --- | --- | --- |
-{% for student in students -%}
-{%- set program = programs[student.program_choice[0].row_id] -%}
+{%- for student in students %}
+{%- set program = programs[student.program_choice[0].row_id] %}
 | {{ loop.index }}. [{{ student.name }}](./{{ student.s_id }}.md) | {{ student.apply_degree }} | [{{ program.abbrv }}](../programs/{{ program.p_id }}.md) | {{ student.prefer_field or "" }} |
-{% endfor %}
 {%- endfor %}
+{% endfor %}

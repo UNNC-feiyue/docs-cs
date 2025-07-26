@@ -83,7 +83,6 @@ class MkDocs:
 
         # Individual program pages
         for program in self.programs.values():
-            # Group program applications by student terms
             applications_by_term = defaultdict(list)
             for application in self.applications.values():
                 if application["program"][0]["row_id"] == program["_id"]:
@@ -99,15 +98,14 @@ class MkDocs:
                 f.write(output)
 
         # Programs index page
-        uni_by_region = defaultdict(list)
+        universities_by_region = defaultdict(list)
         for university in self.universities.values():
-            uni_by_region[university["region"]].append(university)
-        uni_by_region = dict(sorted(uni_by_region.items(), reverse=True))   # Sort in descending order
+            universities_by_region[university["region"]].append(university)
+        universities_by_region = dict(sorted(universities_by_region.items(), reverse=True))   # Sort in descending order
 
         template_index = self.env.get_template("program_index.jinja")
         output = template_index.render(
-            uni_by_region=uni_by_region,
-            programs=self.programs
+            universities_by_region=universities_by_region,
         )
         with open(programs_path / "index.md", "w") as f:
             f.write(output)

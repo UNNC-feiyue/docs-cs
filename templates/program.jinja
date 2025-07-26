@@ -6,18 +6,15 @@
 
   - :material-archive-outline: __总案例数__ – {{ program_applications | length }}
   - :material-checkbox-marked-circle-outline: __录取率__ – {{
-    100 * (program_applications 
-           | selectattr("result", "in", ["Admit", "Chosen"]) 
-           | list 
-           | length) // program_applications | length
-}}%
+        100 * program_applications | selectattr("result", "in", ["Admit", "Chosen"]) | list | length // program_applications | length
+    }}%
 
 </div>
 
 | 申请人 | 均分/GPA | 语言 | GRE | 结果 | 结果日期 |
 | --- | --- | --- | --- | --- | --- |
-{% for application in program_applications -%}
-{%- set student = students[application.student[0].row_id] -%}
+{%- for application in program_applications %}
+{%- set student = students[application.student[0].row_id] %}
 | {{ loop.index }}. [{{ student.name }}](../applicants/{{ student.s_id }}.md) | {{ student.gpa or "" }} | {{ student.lang or "" }} | {{ student.gre or "" }} | {{ status[application.result] }} | {{ application.result_date or "" }} |
-{% endfor %}
 {%- endfor %}
+{% endfor %}
