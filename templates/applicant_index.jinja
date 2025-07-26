@@ -1,0 +1,12 @@
+# 申请案例
+
+## 2025 Fall
+
+| # | 申请人 | 专业 | 申请学位 | 最终去向 | 领域偏好 |
+| --- | --- | --- | --- | --- | --- |
+{% for applicant in students  if applicant.term == "2025 Fall" -%}
+| {{ loop.index }} | [{{ applicant.name }}](./{{ applicant.s_id }}.md) | {{ applicant.major }} | {{ applicant.apply_degree }} | {{ applicant.program_choice[0].display_value }} | {{ applicant.prefer_field or "N/A" }} |
+{% else -%}
+| 暂无2025 Fall申请案例 | - | - | - | - | - |
+{% endfor %}
+

@@ -52,8 +52,15 @@ class MkDocs:
         applicants_path = self.output_path / "applicants"
         applicants_path.mkdir(exist_ok=True)
 
+
+
+        temp_index = self.env.get_template("applicant_index.jinja")
+        output = temp_index.render(students=list(self.students.values()))
+        with open(applicants_path / "index_applicants.md", "w") as f:
+            f.write(output)
+
         for _, student in self.students.items():
-            template = self.env.get_template("applicant.jinja")
-            output = template.render(student=student)
+            temp_applicant = self.env.get_template("applicant.jinja")
+            output = temp_applicant.render(student=student)
             with open(applicants_path / f"{student['s_id']}.md", "w") as f:
                 f.write(output)

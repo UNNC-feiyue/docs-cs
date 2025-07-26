@@ -20,12 +20,12 @@ GRE：{{ student.gre or "N/A" }}
 
 ## 申请结果 Application Results
 
-| 项目 | 结果 | 提交日期 | 结果日期 |
-| --- | --- | --- | --- |
+| # | 项目 | 结果 | 提交日期 | 结果日期 |
+| --- | --- | --- | --- | --- |
 {% for application in student.applications -%}
 {%- set application = applications[application.row_id] -%}
 {%- set program = programs[application.program[0].row_id] -%}
-| [{{ program.abbrv }}](../programs/{{ program.p_id }}.md) | {{ status[application.result] }} | {{ application.submit_date or "" }} | {{ application.result_date or "" }} |
+| {{ loop.index }} | [{{ program.abbrv }}](../programs/{{ program.p_id }}.md) | {{ status[application.result] }} | {{ application.submit_date or "" }} | {{ application.result_date or "" }} |
 {% endfor %}
 {{ student.experience }}
 {{ student.sharing }}
