@@ -9,10 +9,10 @@
 
 </div>
 
-| # | 申请人 | 均分/GPA | 语言 | GRE | 结果 | 结果日期 |
-| --- | --- | --- | --- | --- | --- | --- |
+| 申请人 | 均分/GPA | 语言 | GRE | 结果 | 结果日期 |
+| --- | --- | --- | --- | --- | --- |
 {% for application in program_applications -%}
 {%- set student = students[application.student[0].row_id] -%}
-| {{ loop.index }} | [{{ student.name }}](../applicants/{{ student.s_id }}.md) | {{ student.gpa or "" }} | {{ student.lang or "" }} | {{ student.gre or "" }} | {{ status[application.result] }} | {{ application.result_date or "" }} |
+| {{ loop.index }}. [{{ student.name }}](../applicants/{{ student.s_id }}.md) | {{ student.gpa or "" }} | {{ student.lang or "" }} | {{ student.gre or "" }} | {{ status[application.result] }} | {{ application.result_date or "" }} |
 {% endfor %}
 {%- endfor %}
