@@ -1,0 +1,84 @@
+site_name: 宁波诺丁汉大学飞跃手册
+# site_url:
+site_author: UNNC Feiyue Team
+copyright: 'Copyright &copy; {{ current_year }} UNNC Feiyue Team'
+
+repo_name: UNNC-feiyue
+repo_url: https://github.com/UNNC-feiyue/
+
+theme:
+  name: material
+  # custom_dir: docs/overrides
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Switch to light mode
+  features:
+    - toc.follow
+    - navigation.indexes
+    - navigation.instant
+    - navigation.instant.prefetch
+    - navigation.path
+    - navigation.sections
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.top
+  font:
+    text: 'Fira Sans'
+    code: 'Fira Mono'
+  # include_search_page: false
+  # search_index_only: false
+  icon:
+    repo: fontawesome/brands/github
+
+markdown_extensions:
+  - attr_list
+  - md_in_html
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - tables
+  - toc:
+      permalink: true
+      toc_depth: 2
+      slugify: !!python/object/apply:pymdownx.slugs.slugify
+        kwds:
+          case: lower
+
+extra_css:
+  - stylesheets/extra.css
+
+nav:
+  - Home: index.md
+  - Applicants:
+    - applicants/index.md
+    - Term:
+{%- for term, students in students_by_term.items() %}
+      - {{ term }}:
+{%- for student in students %}
+        - {{ student.name }} <small>/ {{ student.program_choice[0].display_value }}</small>: applicants/{{ student.s_id }}.md
+{%- endfor %}
+{%- endfor %}
+  - Programs:
+    - programs/index.md
+{%- for region, universities in universities_by_region.items() %}
+    - {{ region }}:
+{%- for university in universities %}
+      - {{ university.abbrv }}:
+{%- for program in university.programs %}
+{%- set program = programs[program.row_id] %}
+        - {{ program.abbrv }}: programs/{{ program.p_id }}.md
+{%- endfor %}
+{%- endfor %}
+{%- endfor %}

@@ -9,7 +9,7 @@ if __name__ == "__main__":
     parser.add_argument("--source", choices=["cloud", "cache"], default="cache")
     parser.add_argument("--template", type=str, default="templates")
     parser.add_argument("--resources", type=str, default="resources")
-    parser.add_argument("--output", type=str, default="docs/output")
+    parser.add_argument("--output", type=str, default="output")
     args = parser.parse_args()
 
     print("[INFO] Step 1/1: Getting records from database...")
