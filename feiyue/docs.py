@@ -97,4 +97,19 @@ class MkDocs:
                 f.write(output)
 
         # Programs index page
-        # TODO
+        uni_by_region = defaultdict(list)
+        for university in self.universities.values():
+            uni_by_region[university["region"]].append(university)
+        uni_by_region = dict(sorted(uni_by_region.items(), reverse=True))   # Sort in descending order
+
+        program_by_uni = defaultdict(list)
+        for program in self.programs.values():
+            program_by_uni[program["university"][0]["display_value"]].append(program)
+
+        template_index = self.env.get_template("program_index.jinja")
+        output = template_index.render(
+            uni_by_region=uni_by_region,
+            program_by_uni=program_by_uni
+        )
+        with open(programs_path / "index.md", "w") as f:
+            f.write(output)
