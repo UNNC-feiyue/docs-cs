@@ -5,9 +5,9 @@
 
 {% for uni in unis %}
 ### {{ uni.name }}
-{% set programs = program_by_uni[uni.abbrv] %}
-{% for program in programs %}
-- [{{ program.abbrv }}](./{{ program.p_id }}.md) - `{{ program.level }}` {{ program.name }}
+{% for prog in uni.programs %}
+{% set p = programs[prog.row_id] %}
+- [{{ p.abbrv }}](./{{ p.p_id }}.md) - `{{ p.level }}` {{ p.name }}
 {% endfor %}
 {% endfor %}
 {%- endfor %}

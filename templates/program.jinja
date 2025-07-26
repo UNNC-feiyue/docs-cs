@@ -4,8 +4,8 @@
 
 <div class="grid cards" markdown>
 
-    - :material-archive-outline: __总案例数__ – {{ program_applications | length }}
-    - :material-checkbox-marked-circle-outline: __录取率__ – {{
+  - :material-archive-outline: __总案例数__ – {{ program_applications | length }}
+  - :material-checkbox-marked-circle-outline: __录取率__ – {{
     100 * (program_applications 
            | selectattr("result", "in", ["Admit", "Chosen"]) 
            | list 
