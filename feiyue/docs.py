@@ -64,9 +64,15 @@ class MkDocs:
                 f.write(output)
 
         # Applicants index page
+        students_by_term = defaultdict(list)
+        for student in self.students.values():
+            students_by_term[student["term"]].append(student)
+
         template_index = self.env.get_template("applicant_index.jinja")
-        output = template_index.render(students=list(self.students.values()))
-        with open(applicants_path / "index_applicants.md", "w") as f:
+        output = template_index.render(
+            students_by_term=students_by_term
+        )
+        with open(applicants_path / "index.md", "w") as f:
             f.write(output)
 
     def build_programs(self):
