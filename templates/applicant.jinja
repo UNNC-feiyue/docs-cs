@@ -1,0 +1,31 @@
+# {{ student.program_choice[0].display_value }} – {{ student.name }}
+
+## 基本信息 Basic Information
+
+本科专业：{{ student.major }}
+
+申请学位：{{ student.apply_degree }}
+
+领域偏好：{{ student.prefer_field }}
+
+最终去向：{{ student.program_choice[0].display_value }}
+
+## 申请三维 Application Information
+
+均分（大一/大二/大三）：{{ student.gpa or "N/A" }}
+
+语言成绩：{{ student.lang or "N/A" }}
+
+GRE：{{ student.gre or "N/A" }}
+
+## 申请结果 Application Results
+
+| 项目 | 结果 | 提交日期 | 结果日期 |
+| --- | --- | --- | --- |
+{% for application in student.applications -%}
+{%- set application = applications[application.row_id] -%}
+{%- set program = programs[application.program[0].row_id] -%}
+| [{{ program.abbrv }}](../programs/{{ program.p_id }}.md) | {{ status[application.result] }} | {{ application.submit_date or "" }} | {{ application.result_date or "" }} |
+{% endfor %}
+{{ student.experience }}
+{{ student.sharing }}
