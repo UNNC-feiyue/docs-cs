@@ -1,11 +1,10 @@
 import json
 import shutil
-import sys
 from pathlib import Path
 
-from feiyue import api
+import api
 
-CACHE_DIR = Path(sys.argv[0]).resolve().parent / ".cache"
+CACHE_DIR = Path.cwd() / ".cache"
 
 
 def load_from_cache(filename: str) -> dict:
@@ -18,7 +17,7 @@ def save_to_cache(filename: str, data: dict) -> None:
         json.dump(data, f, ensure_ascii=False)
 
 
-def get_records(api_key: str, source: str) -> tuple[dict, dict, dict, dict]:
+def get_records(api_key: str, source: str) -> list[dict]:
     # Load records from cache
     if source == "cache":
         if CACHE_DIR.exists():
@@ -32,7 +31,7 @@ def get_records(api_key: str, source: str) -> tuple[dict, dict, dict, dict]:
                 print("Cache is corrupted or incomplete, try to get from cloud")
             else:
                 print("Loaded all records from cache")
-                return universities, programs, students, applications
+                return [universities, programs, students, applications]
         else:
             print("Cache directory does not exist, try to get from cloud")
 
@@ -59,4 +58,4 @@ def get_records(api_key: str, source: str) -> tuple[dict, dict, dict, dict]:
     save_to_cache("Application.json", applications)
     print(f"Saved all records to cache")
 
-    return universities, programs, students, applications
+    return [universities, programs, students, applications]
