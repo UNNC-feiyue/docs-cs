@@ -10,30 +10,30 @@ theme:
   name: material
   # custom_dir: docs/overrides
   palette:
-    - media: "(prefers-color-scheme: light)"
-      scheme: default
-      primary: custom
-      accent: custom
-      toggle:
-        icon: material/toggle-switch
-        name: Switch to dark mode
-    - media: "(prefers-color-scheme: dark)"
-      scheme: slate
-      primary: custom
-      accent: custom
-      toggle:
-        icon: material/toggle-switch-off-outline
-        name: Switch to light mode
+  - media: "(prefers-color-scheme: light)"
+    scheme: default
+    primary: custom
+    accent: custom
+    toggle:
+      icon: material/toggle-switch
+      name: Switch to dark mode
+  - media: "(prefers-color-scheme: dark)"
+    scheme: slate
+    primary: custom
+    accent: custom
+    toggle:
+      icon: material/toggle-switch-off-outline
+      name: Switch to light mode
   features:
-    - toc.follow
-    - navigation.indexes
-    - navigation.instant
-    - navigation.instant.prefetch
-    - navigation.path
-    - navigation.sections
-    - navigation.tracking
-    - navigation.tabs
-    - navigation.top
+  - toc.follow
+  - navigation.indexes
+  - navigation.instant
+  - navigation.instant.prefetch
+  - navigation.path
+  - navigation.sections
+  - navigation.tracking
+  - navigation.tabs
+  - navigation.top
   font:
     text: 'Fira Sans'
     code: 'Fira Mono'
@@ -43,32 +43,329 @@ theme:
     repo: fontawesome/brands/github
 
 markdown_extensions:
-  - attr_list
-  - md_in_html
-  - pymdownx.emoji:
-      emoji_index: !!python/name:material.extensions.emoji.twemoji
-      emoji_generator: !!python/name:material.extensions.emoji.to_svg
-  - tables
-  - toc:
-      permalink: true
-      toc_depth: 2
+- attr_list
+- md_in_html
+- pymdownx.emoji:
+    emoji_index: !!python/name:material.extensions.emoji.twemoji
+    emoji_generator: !!python/name:material.extensions.emoji.to_svg
+- tables
+- toc:
+    permalink: true
+    toc_depth: 2
 
 extra_css:
-  - stylesheets/extra.css
+- stylesheets/extra.css
 
 nav:
-  - Home: 
-    - index.md
-  - Applications:
-    - applications/index.md
-    - 2025 Fall:
-      - SGS / ACSE@IC: applications/2025Fall/18_SGS.md
-      - ZYH / CM@CornellTech: applications/2025Fall/36_ZYH.md
-  - Programs:
-    - programs/index.md
-    - US:
-      - CornellTech:
-        - CM@CornellTech: programs/US/CornellTech/CM@CornellTech.md
-    - UK:
-      - IC:
-        - ACSE@IC: programs/UK/IC/ACSE@IC.md
+- Home: index.md
+- Applications:
+  - output/applicants/index.md
+- Programs:
+  - output/programs/index.md
+  - US:
+    - ASU:
+      - CS-PHD@ASU: output/programs/program-00004.md
+    - BU:
+      - MSCS@BU: output/programs/program-00010.md
+      - MSECE@BU: output/programs/program-00011.md
+      - MSSP@BU: output/programs/program-00012.md
+    - Brown:
+      - BME@Brown: output/programs/program-00007.md
+      - CS-PHD@Brown: output/programs/program-00009.md
+      - CS@Brown: output/programs/program-00008.md
+    - Buffalo:
+      - MSCSE@Buffalo: output/programs/program-00013.md
+    - CMU:
+      - AIE-ECE@CMU: output/programs/program-00018.md
+      - AIE-ETIM@CMU: output/programs/program-00019.md
+      - AIM@CMU: output/programs/program-00020.md
+      - ECE@CMU: output/programs/program-00021.md
+      - MET@CMU: output/programs/program-00022.md
+      - MITE@CMU: output/programs/program-00024.md
+      - MSE@CMU: output/programs/program-00023.md
+      - MSSM@CMU: output/programs/program-00026.md
+      - SESV@CMU: output/programs/program-00025.md
+    - Columbia:
+      - AA@Columbia: output/programs/program-00027.md
+      - DDDG@Columbia: output/programs/program-00031.md
+      - MSBME@Columbia: output/programs/program-00028.md
+      - MSCE@Columbia: output/programs/program-00029.md
+      - MSCS@Columbia: output/programs/program-00030.md
+      - MSEE@Columbia: output/programs/program-00032.md
+    - Cornell:
+      - MSCS@Cornell: output/programs/program-00033.md
+      - MSHI@Cornell: output/programs/program-00034.md
+    - CornellTech:
+      - CM@CornellTech: output/programs/program-00036.md
+      - CS@CornellTech: output/programs/program-00035.md
+    - Dartmouth:
+      - MSCS@Dartmouth: output/programs/program-00040.md
+    - Duke:
+      - ECE-PHD@Duke: output/programs/program-00045.md
+      - MEngECE@Duke: output/programs/program-00043.md
+      - MSCS@Duke: output/programs/program-00042.md
+      - MSECE@Duke: output/programs/program-00044.md
+    - GaTech:
+      - MSCS@GaTech: output/programs/program-00054.md
+      - MSCSE(CoC)@GaTech: output/programs/program-00052.md
+      - MSCSE(ECE)@GaTech: output/programs/program-00053.md
+      - MSECE@GaTech: output/programs/program-00055.md
+    - Georgetown:
+      - MSCS@Georgetown: output/programs/program-00056.md
+    - Harvard:
+      - LDIT@Harvard: output/programs/program-00060.md
+      - MSCSE@Harvard: output/programs/program-00059.md
+    - JHU:
+      - MSECS@JHU: output/programs/program-00081.md
+      - MSEM@JHU: output/programs/program-00082.md
+      - MSSE@JHU: output/programs/program-00084.md
+      - Robotics@JHU: output/programs/program-00083.md
+    - MSU:
+      - CS-PHD@MSU: output/programs/program-00098.md
+    - NEU:
+      - MSAI@NEU: output/programs/program-00099.md
+      - MSCS@NEU: output/programs/program-00100.md
+      - MSDS@NEU: output/programs/program-00101.md
+      - MSECE@NEU: output/programs/program-00102.md
+      - MSIS@NEU: output/programs/program-00103.md
+      - MSSES@NEU: output/programs/program-00104.md
+    - NWU:
+      - MSCE@NWU: output/programs/program-00122.md
+      - MSCS@NWU: output/programs/program-00123.md
+    - NYU:
+      - MSCE@NYU-Tandon: output/programs/program-00124.md
+      - MSCS@NYU-Tandon: output/programs/program-00125.md
+    - RPI:
+      - CS-PHD@RPI: output/programs/program-00134.md
+    - Rice:
+      - CS-PHD@Rice: output/programs/program-00130.md
+      - MCS@Rice: output/programs/program-00131.md
+      - MSCS@Rice: output/programs/program-00129.md
+      - MStat@Rice: output/programs/program-00132.md
+    - Rochester:
+      - MSCS@Rochester: output/programs/program-00133.md
+    - SBU:
+      - MSCE@SBU: output/programs/program-00135.md
+    - Stanford:
+      - LDT@Stanford: output/programs/program-00138.md
+      - MSCS@Stanford: output/programs/program-00137.md
+    - TAMU:
+      - MCS@TAMU: output/programs/program-00140.md
+    - Tufts:
+      - ECE-PHD@Tufts: output/programs/program-00141.md
+    - UCB:
+      - EECS@UCB: output/programs/program-00146.md
+      - MSCS@UCB: output/programs/program-00145.md
+    - UCD:
+      - MSCS@UCD: output/programs/program-00147.md
+    - UCI:
+      - CE-PHD@UCI: output/programs/program-00149.md
+      - MCS@UCI: output/programs/program-00151.md
+      - MSCS@UCI: output/programs/program-00150.md
+    - UCLA:
+      - MEngAI@UCLA: output/programs/program-00165.md
+      - MSCS@UCLA: output/programs/program-00166.md
+      - MSECE@UCLA: output/programs/program-00167.md
+    - UCSB:
+      - MSCS@UCSB: output/programs/program-00169.md
+      - MSECE@UCSB: output/programs/program-00170.md
+    - UCSC:
+      - CSE-PHD@UCSC: output/programs/program-00171.md
+    - UCSD:
+      - CS75@UCSD: output/programs/program-00172.md
+      - DS75@UCSD: output/programs/program-00173.md
+      - DS79@UCSD: output/programs/program-00175.md
+      - EC93@UCSD: output/programs/program-00174.md
+    - UChicago:
+      - MPCS@UChicago: output/programs/program-00148.md
+    - UConn:
+      - CSE-PHD@UConn: output/programs/program-00168.md
+    - UIUC:
+      - MCS@UIUC: output/programs/program-00178.md
+      - MEngECE@UIUC: output/programs/program-00176.md
+      - MSIM@UIUC: output/programs/program-00177.md
+    - UMD:
+      - CS-PHD@UMD: output/programs/program-00180.md
+    - UMass:
+      - CS-PHD@UMass: output/programs/program-00179.md
+    - UMich:
+      - MSCSE@UMich: output/programs/program-00181.md
+      - MSI@UMich: output/programs/program-00182.md
+      - Robotics@UMich: output/programs/program-00183.md
+    - UNC:
+      - MSCS@UNC: output/programs/program-00184.md
+    - UPenn:
+      - CIS@UPenn: output/programs/program-00186.md
+      - Robotics@UPenn: output/programs/program-00187.md
+      - SCMP@UPenn: output/programs/program-00188.md
+      - SE@UPenn: output/programs/program-00189.md
+    - UPitt:
+      - CS-PHD@UPitt: output/programs/program-00190.md
+    - USC:
+      - Analytics@USC: output/programs/program-00192.md
+      - CS28@USC: output/programs/program-00195.md
+      - CS32@USC: output/programs/program-00196.md
+      - CSGD@USC: output/programs/program-00197.md
+      - MSADS@USC: output/programs/program-00193.md
+      - MSCE@USC: output/programs/program-00194.md
+      - MSECE@USC: output/programs/program-00198.md
+    - UVA:
+      - CS-PHD@UVA: output/programs/program-00204.md
+    - UWash:
+      - MSEE@UWash-Seattle: output/programs/program-00205.md
+    - UWisc:
+      - MSCS(PMP)@UWisc-Madison: output/programs/program-00207.md
+      - MSCS@UWisc-Madison: output/programs/program-00206.md
+      - MSECE@UWisc-Madison: output/programs/program-00208.md
+    - VT:
+      - CE-PHD@VT: output/programs/program-00209.md
+    - WPI:
+      - CS-PHD@WPI: output/programs/program-00211.md
+    - WUSTL:
+      - MSCS@WUSTL: output/programs/program-00212.md
+    - Yale:
+      - MSCBB@Yale: output/programs/program-00213.md
+      - MSCS(1-yr)@Yale: output/programs/program-00214.md
+      - MSCS(2-yr)@Yale: output/programs/program-00215.md
+  - UK:
+    - Bristol:
+      - CS@Bristol: output/programs/program-00006.md
+    - Cambridge:
+      - ACS@Cambridge: output/programs/program-00014.md
+      - HIAI@Cambridge: output/programs/program-00015.md
+      - MLMI@Cambridge: output/programs/program-00016.md
+    - Edinburgh:
+      - AI@Edinburgh: output/programs/program-00046.md
+      - CS@Edinburgh: output/programs/program-00048.md
+      - CogSci@Edinburgh: output/programs/program-00047.md
+      - DI@Edinburgh: output/programs/program-00050.md
+      - DS@Edinburgh: output/programs/program-00049.md
+      - HPC@Edinburgh: output/programs/program-00051.md
+    - Glasgow:
+      - CS@Glasgow: output/programs/program-00057.md
+      - DS@Glasgow: output/programs/program-00058.md
+    - IC:
+      - AC@IC: output/programs/program-00073.md
+      - ACSE@IC: output/programs/program-00074.md
+      - AIAI@IC: output/programs/program-00075.md
+      - BME@IC: output/programs/program-00076.md
+      - CS@IC: output/programs/program-00077.md
+      - Computing(AIML)@IC: output/programs/program-00078.md
+      - Computing(SE)@IC: output/programs/program-00079.md
+      - Computing(VCR)@IC: output/programs/program-00080.md
+    - KCL:
+      - AC@KCL: output/programs/program-00085.md
+      - HT@KCL: output/programs/program-00086.md
+    - Manchester:
+      - ACS@Manchester: output/programs/program-00091.md
+      - AI@Manchester: output/programs/program-00092.md
+      - DS@Manchester: output/programs/program-00093.md
+      - DT@Manchester: output/programs/program-00094.md
+      - HI@Manchester: output/programs/program-00095.md
+    - Oxford:
+      - ACS@Oxford: output/programs/program-00126.md
+      - Education@Oxford: output/programs/program-00127.md
+    - UCL:
+      - AIDE@UCL: output/programs/program-00152.md
+      - AIMI@UCL: output/programs/program-00153.md
+      - CGVI@UCL: output/programs/program-00154.md
+      - CSDS@UCL: output/programs/program-00155.md
+      - DS@UCL: output/programs/program-00156.md
+      - DSML@UCL: output/programs/program-00157.md
+      - HCI@UCL: output/programs/program-00160.md
+      - HDS@UCL: output/programs/program-00158.md
+      - HI@UCL: output/programs/program-00159.md
+      - ML@UCL: output/programs/program-00161.md
+      - Robotics@UCL: output/programs/program-00162.md
+      - SDIC@UCL: output/programs/program-00163.md
+      - SSE@UCL: output/programs/program-00164.md
+  - SG:
+    - NTU:
+      - AI@NTU: output/programs/program-00105.md
+      - CCA@NTU: output/programs/program-00106.md
+      - DS@NTU: output/programs/program-00107.md
+      - FinTech@NTU: output/programs/program-00108.md
+      - IS@NTU: output/programs/program-00109.md
+      - SPML@NTU: output/programs/program-00110.md
+    - NUS:
+      - AII@NUS: output/programs/program-00111.md
+      - CE@NUS: output/programs/program-00112.md
+      - DSML@NUS: output/programs/program-00113.md
+      - EDI@NUS: output/programs/program-00114.md
+      - ISE@NUS: output/programs/program-00115.md
+      - MComp(AI)@NUS: output/programs/program-00116.md
+      - MComp(CS)@NUS: output/programs/program-00117.md
+      - MComp(IS)@NUS: output/programs/program-00118.md
+      - MTechSE@NUS: output/programs/program-00119.md
+      - Robotics@NUS: output/programs/program-00120.md
+      - SIDT@NUS: output/programs/program-00121.md
+  - JP:
+    - ScienceTokyo:
+      - IGP@ScienceTokyo: output/programs/program-00136.md
+    - UTokyo:
+      - CI@UTokyo: output/programs/program-00200.md
+      - HEES@UTokyo: output/programs/program-00201.md
+      - IME@UTokyo: output/programs/program-00202.md
+    - Waseda:
+      - FSE@Waseda: output/programs/program-00210.md
+  - HK:
+    - CUHK:
+      - AI@CUHK: output/programs/program-00037.md
+      - CS@CUHK: output/programs/program-00038.md
+      - Robotics@CUHK: output/programs/program-00039.md
+    - HKU:
+      - AI@HKU: output/programs/program-00062.md
+      - CS-PHD@HKU: output/programs/program-00064.md
+      - CS@HKU: output/programs/program-00063.md
+      - IDT@HKU: output/programs/program-00065.md
+      - Robotics@HKU: output/programs/program-00066.md
+    - HKUST:
+      - AI@HKUST: output/programs/program-00067.md
+      - BDT@HKUST: output/programs/program-00068.md
+      - DDM@HKUST: output/programs/program-00069.md
+      - FinTech@HKUST: output/programs/program-00070.md
+      - IT@HKUST: output/programs/program-00071.md
+    - PolyU:
+      - EEE-PHD@PolyU: output/programs/program-00128.md
+  - EU:
+    - Aalto:
+      - CS@Aalto: output/programs/program-00001.md
+      - HCI@Aalto: output/programs/program-00002.md
+    - Amsterdam:
+      - CS@Amsterdam: output/programs/program-00003.md
+    - Chalmers:
+      - HCI@Chalmers: output/programs/program-00017.md
+    - Helsinki:
+      - CS@Helsinki: output/programs/program-00061.md
+    - KTH:
+      - CS@KTH: output/programs/program-00088.md
+      - CommSys@KTH: output/programs/program-00087.md
+      - ML@KTH: output/programs/program-00089.md
+      - SEDS@KTH: output/programs/program-00090.md
+    - Stockholm:
+      - CSS@Stockholm: output/programs/program-00139.md
+    - UAB:
+      - LSCM@UAB: output/programs/program-00142.md
+    - Uppsala:
+      - HCI@Uppsala: output/programs/program-00191.md
+  - CN:
+    - DKU:
+      - MEngECE@DKU: output/programs/program-00041.md
+    - HKUST(GZ):
+      - RedBird@HKUST(GZ): output/programs/program-00072.md
+    - UNNC:
+      - CS-PHD@UNNC: output/programs/program-00185.md
+  - CA:
+    - UBC:
+      - ECE@UBC: output/programs/program-00143.md
+      - Statistics@UBC: output/programs/program-00144.md
+    - UToronto:
+      - CS-PHD@UToronto: output/programs/program-00203.md
+  - AU:
+    - Auckland:
+      - CS@Auckland: output/programs/program-00005.md
+    - Melbourne:
+      - IS@Melbourne: output/programs/program-00096.md
+      - IT@Melbourne: output/programs/program-00097.md
+    - USYD:
+      - MCS@USYD: output/programs/program-00199.md

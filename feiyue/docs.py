@@ -2,6 +2,7 @@ from collections import defaultdict
 from pathlib import Path
 
 from jinja2 import Environment, FileSystemLoader
+from ruamel.yaml import YAML
 
 WORKING_DIR = Path.cwd()
 
@@ -11,6 +12,7 @@ def build_pages(records: list[dict], template: str, resources: str, output: str)
     mkdocs.pre_build(records)
     mkdocs.build_applicants()
     mkdocs.build_programs()
+    mkdocs.build_nav()
 
 
 class MkDocs:
@@ -102,14 +104,61 @@ class MkDocs:
             uni_by_region[university["region"]].append(university)
         uni_by_region = dict(sorted(uni_by_region.items(), reverse=True))   # Sort in descending order
 
-        program_by_uni = defaultdict(list)
-        for program in self.programs.values():
-            program_by_uni[program["university"][0]["display_value"]].append(program)
-
         template_index = self.env.get_template("program_index.jinja")
         output = template_index.render(
             uni_by_region=uni_by_region,
-            program_by_uni=program_by_uni
+            programs=self.programs
         )
         with open(programs_path / "index.md", "w") as f:
             f.write(output)
+
+
+    def build_nav(self):
+        # Initialize nav structure
+        nav = [
+            {"Home": "index.md"},
+            {"Applications": ["output/applicants/index.md"]},
+            {"Programs": ["output/programs/index.md"]},
+        ]
+
+        # Group universities by region (sorted in reverse order)
+        uni_by_region = defaultdict(list)
+        for uni in self.universities.values():
+            uni_by_region[uni["region"]].append(uni)
+        
+        program_table = {p["abbrv"]: p["p_id"] for p in self.programs.values()}
+
+        # Create a nested structure for programs by region
+        programs_by_region = {
+            region: [
+                {
+                    uni["abbrv"]: [
+                        {prog["display_value"]: f"output/programs/{program_table[prog['display_value']]}.md"}
+                        for prog in sorted(uni["programs"], key=lambda p: p["display_value"])
+                    ]
+                }
+                for uni in sorted(unis, key=lambda u: u["abbrv"])
+            ]
+            for region, unis in sorted(uni_by_region.items(), reverse=True)
+        }
+
+        # Update the nav structure with programs
+        for item in nav:
+            if "Programs" in item:
+                for region, region_data in programs_by_region.items():
+                    item["Programs"].append({region: region_data})
+                break
+
+        # Write the updated nav structure to mkdocs.yml
+        yaml = YAML()
+        yaml.preserve_quotes = True
+        nav_path = WORKING_DIR / "mkdocs.yml"
+
+        with open(nav_path, "r", encoding="utf-8") as f:
+            config = yaml.load(f)
+
+        config["nav"] = nav
+
+        with open(nav_path, "w", encoding="utf-8") as f:
+            yaml.dump(config, f)
+
