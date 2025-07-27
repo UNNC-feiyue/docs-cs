@@ -40,8 +40,32 @@ class MkDocs:
         self.students = records[2]
         self.applications = records[3]
 
+        # Helper dicts to simplify rendering
+        students_by_term = defaultdict(list)
+        for student in self.students.values():
+            students_by_term[student["term"]].append(student)
+        students_by_term = {
+            term: sorted(students, key=lambda s: s["name"].lower())  # Sort by student name
+            for term, students in sorted(students_by_term.items(), reverse=True)  # Sort by term descending
+        }
+
+        universities_by_region = defaultdict(list)
+        for university in self.universities.values():
+            universities_by_region[university["region"]].append(university)
+        universities_by_region = {
+            region: sorted(universities, key=lambda u: u["name"])  # Sort by university name
+            for region, universities in sorted(
+                universities_by_region.items(),
+                key=lambda item: (-len(item[1]), item[0])  # Sort by COUNT(universities) descending, then region name
+            )
+        }
+        for universities in universities_by_region.values():
+            for university in universities:
+                university["programs"].sort(key=lambda p: p["display_value"])  # Sort by program abbreviation
+
         self.env = Environment(loader=FileSystemLoader(self.template_path))
         self.env.globals.update({  # Jinja global variables
+            "current_year": datetime.now().year,
             "universities": self.universities,
             "programs": self.programs,
             "students": self.students,
@@ -52,7 +76,8 @@ class MkDocs:
                 "Waitlist": ":yellow_circle: Waitlist",
                 "Chosen": ":checkered_flag: Chosen",
             },
-            "current_year": datetime.now().year
+            "students_by_term": students_by_term,
+            "universities_by_region": universities_by_region
         })
 
     def build_applicants(self) -> None:
@@ -69,14 +94,8 @@ class MkDocs:
                 f.write(output)
 
         # Applicants index page
-        students_by_term = defaultdict(list)
-        for student in self.students.values():
-            students_by_term[student["term"]].append(student)
-
         template_index = self.env.get_template("applicant_index.jinja")
-        output = template_index.render(
-            students_by_term=students_by_term
-        )
+        output = template_index.render()
         with open(applicants_path / "index.md", "w") as f:
             f.write(output)
 
@@ -86,11 +105,18 @@ class MkDocs:
 
         # Individual program pages
         for program in self.programs.values():
-            applications_by_term = defaultdict(list)
+            # Helper list for correctly sorting applications_by_term
+            program_applications = []
             for application in self.applications.values():
                 if application["program"][0]["row_id"] == program["_id"]:
                     student = self.students[application["student"][0]["row_id"]]
-                    applications_by_term[student["term"]].append(application)
+                    program_applications.append((student["term"], student["name"], application))
+            program_applications.sort(key=lambda x: x[1].lower())  # Sort by student name
+            program_applications.sort(key=lambda x: x[0], reverse=True)  # Sort by term descending
+
+            applications_by_term = defaultdict(list)
+            for term, _, application in program_applications:
+                applications_by_term[term].append(application)
 
             template = self.env.get_template("program.jinja")
             output = template.render(
@@ -101,31 +127,13 @@ class MkDocs:
                 f.write(output)
 
         # Programs index page
-        universities_by_region = defaultdict(list)
-        for university in self.universities.values():
-            universities_by_region[university["region"]].append(university)
-        universities_by_region = dict(sorted(universities_by_region.items(), reverse=True))  # Sort in descending order
-
         template_index = self.env.get_template("program_index.jinja")
-        output = template_index.render(
-            universities_by_region=universities_by_region,
-        )
+        output = template_index.render()
         with open(programs_path / "index.md", "w") as f:
             f.write(output)
 
     def build_nav(self) -> None:
-        students_by_term = defaultdict(list)
-        for student in self.students.values():
-            students_by_term[student["term"]].append(student)
-
-        universities_by_region = defaultdict(list)
-        for university in self.universities.values():
-            universities_by_region[university["region"]].append(university)
-
         template = self.env.get_template("mkdocs.jinja")
-        output = template.render(
-            students_by_term=students_by_term,
-            universities_by_region=universities_by_region
-        )
+        output = template.render()
         with open(self.output_path / "mkdocs.yml", "w") as f:
             f.write(output)
