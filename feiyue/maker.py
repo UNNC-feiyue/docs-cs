@@ -12,10 +12,10 @@ if __name__ == "__main__":
     parser.add_argument("--output", type=str, default="output")
     args = parser.parse_args()
 
-    print("[INFO] Step 1/1: Getting records from database...")
-    records = db.get_records(args.api_key, args.source)
+    print("[INFO] Step 1/2: Getting records from database...")
+    records, image_links = db.get_records(args.api_key, args.source)
 
     print("\n[INFO] Step 2/2: Building mkdocs pages...")
-    docs.build_pages(records, args.templates, args.resources, args.output)
+    docs.build_pages(records, image_links, args.templates, args.resources, args.output)
 
-    print("\n[SUCCESS]")
+    print("\n[SUCCESS] Job completed successfully, ready to publish!")

@@ -5,18 +5,27 @@ from collections import defaultdict
 from datetime import datetime
 from pathlib import Path
 
+import requests
 from jinja2 import Environment, FileSystemLoader
 
 WORKING_DIR = Path.cwd()
 
 
-def build_pages(records: list[dict], templates: str, resources: str, output: str) -> None:
+def build_pages(records: list[dict], image_links: dict, templates: str, resources: str, output: str) -> None:
     mkdocs = MkDocs(templates, resources, output)
     mkdocs.pre_build(records)
+    print("Pre-build complete")
     mkdocs.build_applicants()
+    print("Generated applicant pages")
     mkdocs.build_programs()
+    print("Generated program pages")
     mkdocs.build_nav()
+    print("Generated mkdocs.yml")
     mkdocs.copy_resources()
+    print("Copied mkdocs resources")
+    if image_links:
+        mkdocs.download(image_links)
+        print("Downloaded referenced images")
 
 
 class MkDocs:
@@ -151,3 +160,21 @@ class MkDocs:
                 shutil.copy(self.resources_dir / src, self.output_dir / dest)
             elif os.path.isdir(self.resources_dir / src):
                 shutil.copytree(self.resources_dir / src, self.output_dir / dest, dirs_exist_ok=True)
+
+    def download(self, image_links: dict) -> None:
+        images_dir = self.docs_path / "images"
+        images_dir.mkdir(exist_ok=True)
+
+        for filename, data in image_links.items():
+            url = data["download_link"]
+            if not url:
+                print(f"NO DOWNLOAD LINK FOR {filename}, SKIPPING")
+                continue
+
+            response = requests.get(url, stream=True)
+            if response.status_code != 200:
+                raise Exception(f"Failed to download {filename} from {url}: {response.status_code} {response.text}")
+
+            with open(images_dir / filename, "wb") as f:
+                for chunk in response.iter_content(chunk_size=8192):
+                    f.write(chunk)

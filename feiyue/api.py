@@ -6,11 +6,17 @@ import requests
 SERVER = "cloud.seatable.io"
 
 
+def parse_headers(token: str) -> dict:
+    return {
+        'Accept': 'application/json',
+        'Authorization': 'Bearer ' + token
+    }
+
+
 def get_base_token_uuid(api_key: str) -> tuple[str, str]:
-    response = requests.get(
-        f"https://{SERVER}/api/v2.1/dtable/app-access-token/",
-        headers={"Accept": "application/json", "Authorization": f"Bearer {api_key}"}
-    )
+    url = f"https://{SERVER}/api/v2.1/dtable/app-access-token/"
+    headers = parse_headers(api_key)
+    response = requests.get(url, headers=headers)
     if response.status_code != 200:
         raise Exception(f"Failed to generate base token: {response.status_code} {response.text}")
 
@@ -18,10 +24,9 @@ def get_base_token_uuid(api_key: str) -> tuple[str, str]:
 
 
 def get_metadata(base_token: str, base_uuid: str) -> dict:
-    response = requests.get(
-        f"https://{SERVER}/api-gateway/api/v2/dtables/{base_uuid}/metadata/",
-        headers={"Accept": "application/json", "Authorization": f"Bearer {base_token}"}
-    )
+    url = f"https://{SERVER}/api-gateway/api/v2/dtables/{base_uuid}/metadata/"
+    headers = parse_headers(base_token)
+    response = requests.get(url, headers=headers)
     if response.status_code != 200:
         raise Exception(f"Failed to get metadata: {response.status_code} {response.text}")
 
@@ -29,20 +34,20 @@ def get_metadata(base_token: str, base_uuid: str) -> dict:
 
 
 def get_all_rows(table_name: str, base_token: str, base_uuid: str) -> dict:
+    rows = {}
     start = 0
     limit = 1000
-    rows = {}
+
+    url = f"https://{SERVER}/api-gateway/api/v2/dtables/{base_uuid}/rows/"
+    headers = parse_headers(base_token)
+    params = {
+        "table_name": table_name,
+        "start": start,
+        "limit": limit,
+        "convert_keys": True,
+    }
     while True:
-        response = requests.get(
-            f"https://{SERVER}/api-gateway/api/v2/dtables/{base_uuid}/rows/",
-            headers={"Accept": "application/json", "Authorization": f"Bearer {base_token}"},
-            params={
-                "table_name": table_name,
-                "start": start,
-                "limit": limit,
-                "convert_keys": True,
-            }
-        )
+        response = requests.get(url, headers=headers, params=params)
         if response.status_code != 200:
             raise Exception(f"Failed to get rows: {response.status_code} {response.text}")
 
@@ -59,14 +64,24 @@ def get_all_rows(table_name: str, base_token: str, base_uuid: str) -> dict:
     return rows
 
 
+def get_file_download_link(api_key: str, path: str) -> str:
+    url = f"https://{SERVER}/api/v2.1/dtable/app-download-link/"
+    headers = parse_headers(api_key)
+    params = {'path': path}
+    response = requests.get(url, headers=headers, params=params)
+    if response.status_code != 200:
+        raise Exception(f"Failed to get file download link: {response.status_code} {response.text}")
+
+    return response.json()["download_link"]
+
+
 # Test api-key/base-token functionality and view db tables and attributes
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--api-key", type=str, required=True)
     args = parser.parse_args()
-    token, uuid = get_base_token_uuid(args.api_key)
 
-    metadata = get_metadata(token, uuid)
+    metadata = get_metadata(get_base_token_uuid(args.api_key))
     result = {}
     for data in metadata['metadata']['tables']:
         table = data['name']
