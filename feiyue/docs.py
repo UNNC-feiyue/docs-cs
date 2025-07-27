@@ -7,8 +7,8 @@ from jinja2 import Environment, FileSystemLoader
 WORKING_DIR = Path.cwd()
 
 
-def build_pages(records: list[dict], template: str, resources: str, output: str) -> None:
-    mkdocs = MkDocs(template, resources, output)
+def build_pages(records: list[dict], templates: str, resources: str, output: str) -> None:
+    mkdocs = MkDocs(templates, resources, output)
     mkdocs.pre_build(records)
     mkdocs.build_applicants()
     mkdocs.build_programs()
@@ -16,11 +16,11 @@ def build_pages(records: list[dict], template: str, resources: str, output: str)
 
 
 class MkDocs:
-    def __init__(self, template: str, resources: str, output: str) -> None:
-        self.template_path: Path = WORKING_DIR / template
-        self.resources_path: Path = WORKING_DIR / resources
-        self.output_path: Path = WORKING_DIR / output
-        self.docs_path: Path = self.output_path / "docs"
+    def __init__(self, templates: str, resources: str, output: str) -> None:
+        self.templates_dir: Path = WORKING_DIR / templates
+        self.resources_dir: Path = WORKING_DIR / resources
+        self.output_dir: Path = WORKING_DIR / output
+        self.docs_path: Path = self.output_dir / "docs"
         self.universities = None
         self.programs = None
         self.students = None
@@ -28,11 +28,11 @@ class MkDocs:
         self.env = None
 
     def pre_build(self, records: list[dict]) -> None:
-        if not self.template_path.exists():
+        if not self.templates_dir.exists():
             raise FileNotFoundError(f"Template directory does not exist")
-        if not self.resources_path.exists():
+        if not self.resources_dir.exists():
             raise FileNotFoundError(f"Resources directory does not exist")
-        self.output_path.mkdir(parents=True, exist_ok=True)
+        self.output_dir.mkdir(parents=True, exist_ok=True)
         self.docs_path.mkdir(parents=True, exist_ok=True)
 
         self.universities = records[0]
@@ -63,7 +63,7 @@ class MkDocs:
             for university in universities:
                 university["programs"].sort(key=lambda p: p["display_value"])  # Sort by program abbreviation
 
-        self.env = Environment(loader=FileSystemLoader(self.template_path))
+        self.env = Environment(loader=FileSystemLoader(self.templates_dir))
         self.env.globals.update({  # Jinja global variables
             "current_year": datetime.now().year,
             "universities": self.universities,
@@ -81,8 +81,8 @@ class MkDocs:
         })
 
     def build_applicants(self) -> None:
-        applicants_path = self.docs_path / "applicants"
-        applicants_path.mkdir(exist_ok=True)
+        applicants_dir = self.docs_path / "applicants"
+        applicants_dir.mkdir(exist_ok=True)
 
         # Individual applicant pages
         for student in self.students.values():
@@ -90,18 +90,18 @@ class MkDocs:
             output = template.render(
                 student=student
             )
-            with open(applicants_path / f"{student['s_id']}.md", "w") as f:
+            with open(applicants_dir / f"{student['s_id']}.md", "w") as f:
                 f.write(output)
 
         # Applicants index page
         template_index = self.env.get_template("applicant_index.jinja")
         output = template_index.render()
-        with open(applicants_path / "index.md", "w") as f:
+        with open(applicants_dir / "index.md", "w") as f:
             f.write(output)
 
     def build_programs(self) -> None:
-        programs_path = self.docs_path / "programs"
-        programs_path.mkdir(exist_ok=True)
+        programs_dir = self.docs_path / "programs"
+        programs_dir.mkdir(exist_ok=True)
 
         # Individual program pages
         for program in self.programs.values():
@@ -123,17 +123,17 @@ class MkDocs:
                 program=program,
                 applications_by_term=applications_by_term
             )
-            with open(programs_path / f"{program['p_id']}.md", "w") as f:
+            with open(programs_dir / f"{program['p_id']}.md", "w") as f:
                 f.write(output)
 
         # Programs index page
         template_index = self.env.get_template("program_index.jinja")
         output = template_index.render()
-        with open(programs_path / "index.md", "w") as f:
+        with open(programs_dir / "index.md", "w") as f:
             f.write(output)
 
     def build_nav(self) -> None:
         template = self.env.get_template("mkdocs.jinja")
         output = template.render()
-        with open(self.output_path / "mkdocs.yml", "w") as f:
+        with open(self.output_dir / "mkdocs.yml", "w") as f:
             f.write(output)
