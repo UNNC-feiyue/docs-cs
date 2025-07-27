@@ -1,0 +1,32 @@
+[data-md-color-scheme="default"] {
+  --md-primary-fg-color: #10263B;
+  --md-accent-fg-color:  #66C3DA;
+  --md-typeset-a-color:  #009BC1;
+}
+
+[data-md-color-scheme="slate"] {
+  --md-primary-fg-color: #10263B;
+  --md-accent-fg-color:  #66C3DA;
+  --md-typeset-a-color:  #009BC1;
+}
+
+h1, h2, h3 {
+  font-weight: bold !important;
+}
+
+small {
+  font-weight: normal;
+}
+
+.md-typeset__table {
+  width: 100% !important;
+}
+
+.md-typeset__table table:not([class]) {
+  display: table !important;
+}
+
+.md-typeset__table table td:first-child,
+.md-typeset__table table th:first-child {
+  white-space: nowrap;
+}

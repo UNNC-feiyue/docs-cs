@@ -1,3 +1,6 @@
+import json
+import os.path
+import shutil
 from collections import defaultdict
 from datetime import datetime
 from pathlib import Path
@@ -13,6 +16,7 @@ def build_pages(records: list[dict], templates: str, resources: str, output: str
     mkdocs.build_applicants()
     mkdocs.build_programs()
     mkdocs.build_nav()
+    mkdocs.copy_resources()
 
 
 class MkDocs:
@@ -137,3 +141,13 @@ class MkDocs:
         output = template.render()
         with open(self.output_dir / "mkdocs.yml", "w") as f:
             f.write(output)
+
+    def copy_resources(self) -> None:
+        with open(self.resources_dir / "manifest.json", "r") as f:
+            manifest = json.load(f)
+
+        for src, dest in manifest.items():
+            if os.path.isfile(self.resources_dir / src):
+                shutil.copy(self.resources_dir / src, self.output_dir / dest)
+            elif os.path.isdir(self.resources_dir / src):
+                shutil.copytree(self.resources_dir / src, self.output_dir / dest, dirs_exist_ok=True)
