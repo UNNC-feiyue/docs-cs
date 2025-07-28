@@ -50,6 +50,8 @@ def get_records(api_key: str, source: str) -> tuple[list[dict], dict]:
             else:
                 try:
                     image_links = load_from_cache("Image.json")
+                    for image in image_links.values():
+                        image["download_link"] = api.get_file_download_link(api_key, image["path"])
                 except (FileNotFoundError, json.JSONDecodeError):
                     print(f"Loaded all records from cache\nNO CACHED IMAGE FOUND, USE --source cloud IF NEEDED")
                     return [universities, programs, students, applications], {}
@@ -83,7 +85,10 @@ def get_records(api_key: str, source: str) -> tuple[list[dict], dict]:
                 student[column] = updated_content
                 for path, filename in images:
                     if filename not in image_links:
-                        image_links[filename] = {"download_link": api.get_file_download_link(api_key, path)}
+                        image_links[filename] = {
+                            "path": path,
+                            "download_link": api.get_file_download_link(api_key, path)
+                        }
 
     if image_links:
         print(f"Fetched {len(students)} student entries from cloud, including {len(image_links)} image links")
@@ -99,7 +104,11 @@ def get_records(api_key: str, source: str) -> tuple[list[dict], dict]:
     save_to_cache("Program.json", programs)
     save_to_cache("Student.json", students)
     save_to_cache("Application.json", applications)
-    save_to_cache("Image.json", image_links)
+    save_to_cache("Image.json", {
+        filename: {
+            "path": data["path"]
+        } for filename, data in image_links.items()
+    })
     print(f"Saved all records to cache")
 
     return [universities, programs, students, applications], image_links
