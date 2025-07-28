@@ -22,7 +22,7 @@ def build_pages(records: list[dict], image_links: dict, templates: str, resource
     mkdocs.build_programs()
     print("Generated program pages")
     mkdocs.build_nav()
-    print("Generated mkdocs.yml")
+    print("Generated mkdocs.yml and homepage")
     mkdocs.copy_resources()
     print("Copied mkdocs resources")
     if image_links:
@@ -156,9 +156,16 @@ class MkDocs:
             f.write(output)
 
     def build_nav(self) -> None:
+        # mkdocs.yml
         template = self.env.get_template("mkdocs.jinja")
         output = template.render()
         with open(self.output_dir / "mkdocs.yml", "w") as f:
+            f.write(output)
+
+        # Homepage
+        template_index = self.env.get_template("index.jinja")
+        output = template_index.render()
+        with open(self.docs_path / "index.md", "w") as f:
             f.write(output)
 
     def copy_resources(self) -> None:
