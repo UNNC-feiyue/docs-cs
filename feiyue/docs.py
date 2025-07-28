@@ -1,5 +1,6 @@
 import json
 import os.path
+import re
 import shutil
 from collections import defaultdict
 from datetime import datetime
@@ -7,6 +8,7 @@ from pathlib import Path
 
 import requests
 from jinja2 import Environment, FileSystemLoader
+from pypinyin import lazy_pinyin
 
 WORKING_DIR = Path.cwd()
 
@@ -57,8 +59,16 @@ class MkDocs:
         students_by_term = defaultdict(list)
         for student in self.students.values():
             students_by_term[student["term"]].append(student)
+
+        def sort_key(value: dict) -> tuple[int, str | list[str]]:
+            name = value["name"]
+            if re.match(r'^[A-Za-z]', name):
+                return 0, name.lower()
+            else:
+                return 1, lazy_pinyin(name)
+
         students_by_term = {
-            term: sorted(students, key=lambda s: s["name"].lower())  # Sort by student name
+            term: sorted(students, key=sort_key)  # Sort by student name
             for term, students in sorted(students_by_term.items(), reverse=True)  # Sort by term descending
         }
 
