@@ -8,7 +8,7 @@ repo_url: https://github.com/UNNC-feiyue/docs-cs/
 
 theme:
   name: material
-#  custom_dir: overrides
+  custom_dir: overrides
   palette:
     - media: "(prefers-color-scheme: light)"
       scheme: default
@@ -25,6 +25,9 @@ theme:
         icon: material/toggle-switch-off-outline
         name: Switch to light mode
   features:
+    - announce.dismiss
+    - search.highlight
+    - search.share
     - toc.follow
     - navigation.footer
     - navigation.indexes
@@ -38,20 +41,27 @@ theme:
   font:
     text: 'Fira Sans'
     code: 'Fira Mono'
-  # include_search_page: false
-  # search_index_only: false
   icon:
     repo: fontawesome/brands/github
 
+extra_css:
+- stylesheets/extra.css
+
+plugins:
+  - search:
+      lang:
+        - en
+        - zh
+      separator: '[\s\u200b\-,:!=\[\]()"`/@]+|\.(?!\d)|&[lg]t;|(?!\b)(?=[A-Z][a-z])'
+
 markdown_extensions:
+  # Python Markdown
+  - abbr
   - admonition
   - attr_list
+  - def_list
+  - footnotes
   - md_in_html
-  - pymdownx.details
-  - pymdownx.emoji:
-      emoji_index: !!python/name:material.extensions.emoji.twemoji
-      emoji_generator: !!python/name:material.extensions.emoji.to_svg
-  - pymdownx.superfences
   - tables
   - toc:
       permalink: true
@@ -59,12 +69,33 @@ markdown_extensions:
       slugify: !!python/object/apply:pymdownx.slugs.slugify
         kwds:
           case: lower
-
-extra_css:
-  - stylesheets/extra.css
+  # Python Markdown Extensions
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
 
 nav:
-  - Home: index.md
+  - Home:
+    - index.md
+  - Prefaces:
+    - From Feiyue Team 2025: prefaces/preface-2025.md
   - Applicants:
     - applicants/index.md
     - Term:
@@ -86,3 +117,5 @@ nav:
 {%- endfor %}
 {%- endfor %}
 {%- endfor %}
+  - Download:
+    - download.md

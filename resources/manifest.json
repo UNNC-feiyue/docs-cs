@@ -1,3 +1,6 @@
 {
-  "stylesheets": "docs/stylesheets"
+  "overrides": "overrides",
+  "prefaces": "docs/prefaces",
+  "stylesheets": "docs/stylesheets",
+  "download.md": "docs/download.md"
 }
