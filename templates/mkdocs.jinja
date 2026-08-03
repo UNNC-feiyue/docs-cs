@@ -100,20 +100,20 @@ nav:
     - applicants/index.md
     - Term:
 {%- for term, students in students_by_term.items() %}
-      - {{ term }}:
+      - {{ term | tojson }}:
 {%- for student in students %}
-        - {{ student.name }} <small>/ {{ student.program_choice[0].display_value }}</small>: applicants/{{ student.s_id }}.md
+        - {{ (student.name ~ " <small>/ " ~ student.program_choice[0].display_value ~ "</small>") | tojson }}: applicants/{{ student.s_id }}.md
 {%- endfor %}
 {%- endfor %}
   - Programs:
     - programs/index.md
 {%- for region, universities in universities_by_region.items() %}
-    - {{ region }}:
+    - {{ region | tojson }}:
 {%- for university in universities %}
-      - {{ university.abbrv }}:
+      - {{ university.abbrv | tojson }}:
 {%- for program in university.programs %}
 {%- set program = programs[program.row_id] %}
-        - {{ program.abbrv }}: programs/{{ program.p_id }}.md
+        - {{ program.abbrv | tojson }}: programs/{{ program.p_id }}.md
 {%- endfor %}
 {%- endfor %}
 {%- endfor %}
