@@ -1,3 +1,5 @@
+{% from "program_title.jinja" import program_title %}
+{% set chosen_program = programs[student.program_choice[0].row_id] %}
 # {{ student.program_choice[0].display_value }} – {{ student.name }}
 
 ## 基本信息 Basic Information
@@ -8,7 +10,7 @@
 
 领域偏好：{{ student.prefer_field or "N/A" }}
 
-最终去向：{{ student.program_choice[0].display_value }}
+最终去向：[{{ chosen_program.abbrv }}](../programs/{{ chosen_program.p_id }}.md) — {{ program_title(chosen_program) }}
 
 ## 申请三维 Application Information
 
@@ -25,7 +27,7 @@ GRE：{{ student.gre or "N/A" }}
 {%- for application in student.applications %}
 {%- set application = applications[application.row_id] %}
 {%- set program = programs[application.program[0].row_id] %}
-| {{ loop.index }}. [{{ program.abbrv }}](../programs/{{ program.p_id }}.md) | {{ status[application.result] }} | {{ application.submit_date or "" }} | {{ application.result_date or "" }} |
+| {{ loop.index }}. [{{ program.abbrv }}](../programs/{{ program.p_id }}.md) — {{ program_title(program) }} | {{ status[application.result] }} | {{ application.submit_date or "" }} | {{ application.result_date or "" }} |
 {%- endfor %}
 
 {{ student.experience }}

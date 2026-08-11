@@ -1,0 +1,18 @@
+{% macro program_title(program) -%}
+{%- set name = program.name | trim -%}
+{%- set degree_prefixes = [
+    "Master ", "MA ", "MCS ", "MDS ", "MEng ", "MPhil ", "MRes ",
+    "MS ", "MSc ", "MSE ", "MStat ", "MTech ", "PhD ", "DPhil ", "ScM "
+] -%}
+{%- set state = namespace(is_full=false) -%}
+{%- for prefix in degree_prefixes -%}
+    {%- if name.startswith(prefix) -%}
+        {%- set state.is_full = true -%}
+    {%- endif -%}
+{%- endfor -%}
+{%- set normalized_name = " " ~ name | replace(",", " ") | replace("(", " ") | replace(")", " ") ~ " " -%}
+{%- if (" " ~ program.level ~ " ") in normalized_name -%}
+    {%- set state.is_full = true -%}
+{%- endif -%}
+{{- name if state.is_full else program.level ~ " " ~ name -}}
+{%- endmacro %}

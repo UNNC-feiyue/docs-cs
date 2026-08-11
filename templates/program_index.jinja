@@ -1,3 +1,4 @@
+{% from "program_title.jinja" import program_title %}
 # 项目列表
 {% for region, universities in universities_by_region.items() %}
 ## {{ region }}
@@ -5,7 +6,7 @@
 ### {{ university.name }}
 {% for program in university.programs %}
 {%- set program = programs[program.row_id] %}
-- [{{ program.abbrv }}](./{{ program.p_id }}.md) - `{{ program.level }}` {{ program.name }}
+- [{{ program.abbrv }}](./{{ program.p_id }}.md) - {{ program_title(program) }}
 {%- endfor %}
 {% endfor %}
 {%- endfor %}

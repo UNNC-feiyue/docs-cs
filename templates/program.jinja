@@ -1,4 +1,5 @@
-# {{ program.abbrv }}<br><small>`{{ program.level }}` {{ program.name }}</small>
+{% from "program_title.jinja" import program_title %}
+# {{ program.abbrv }}<br><small>{{ program_title(program) }}</small>
 {% for term, applications in applications_by_term.items() %}
 ## {{ term }}
 
