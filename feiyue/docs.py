@@ -2,6 +2,7 @@ import json
 import os.path
 import re
 import shutil
+import time
 from collections import defaultdict
 from datetime import datetime
 from pathlib import Path
@@ -11,6 +12,8 @@ from jinja2 import Environment, FileSystemLoader
 from pypinyin import lazy_pinyin
 
 WORKING_DIR = Path.cwd()
+IMAGE_DOWNLOAD_ATTEMPTS = 5
+IMAGE_DOWNLOAD_TIMEOUT = (10, 60)
 
 
 def build_pages(records: list[dict], image_links: dict, templates: str, resources: str, output: str) -> None:
@@ -188,10 +191,28 @@ class MkDocs:
                 print(f"NO DOWNLOAD LINK FOR {filename}, SKIPPING")
                 continue
 
-            response = requests.get(url, stream=True)
-            if response.status_code != 200:
-                raise Exception(f"Failed to download {filename} from {url}: {response.status_code} {response.text}")
+            destination = images_dir / filename
+            partial = destination.with_suffix(destination.suffix + ".part")
 
-            with open(images_dir / filename, "wb") as f:
-                for chunk in response.iter_content(chunk_size=8192):
-                    f.write(chunk)
+            for attempt in range(1, IMAGE_DOWNLOAD_ATTEMPTS + 1):
+                try:
+                    with requests.get(url, stream=True, timeout=IMAGE_DOWNLOAD_TIMEOUT) as response:
+                        response.raise_for_status()
+                        with open(partial, "wb") as f:
+                            for chunk in response.iter_content(chunk_size=8192):
+                                f.write(chunk)
+                    partial.replace(destination)
+                    break
+                except requests.RequestException as error:
+                    partial.unlink(missing_ok=True)
+                    if attempt == IMAGE_DOWNLOAD_ATTEMPTS:
+                        raise Exception(
+                            f"Failed to download {filename} after {IMAGE_DOWNLOAD_ATTEMPTS} attempts"
+                        ) from error
+
+                    delay = 2 ** (attempt - 1)
+                    print(
+                        f"[WARN] Failed to download {filename} "
+                        f"(attempt {attempt}/{IMAGE_DOWNLOAD_ATTEMPTS}), retrying in {delay}s"
+                    )
+                    time.sleep(delay)
