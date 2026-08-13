@@ -14,6 +14,25 @@ from pypinyin import lazy_pinyin
 WORKING_DIR = Path.cwd()
 IMAGE_DOWNLOAD_ATTEMPTS = 5
 IMAGE_DOWNLOAD_TIMEOUT = (10, 60)
+APPLICATION_RESULT_RANK = {
+    "Chosen": 0,
+    "Admit": 1,
+    "Waitlist": 2,
+    "Reject": 3,
+}
+
+
+def sort_applications_by_result(
+    student_applications: list[dict], applications: dict[str, dict]
+) -> list[dict]:
+    """Group application links by result while preserving order within a group."""
+    return sorted(
+        student_applications,
+        key=lambda link: APPLICATION_RESULT_RANK.get(
+            applications[link["row_id"]].get("result"),
+            len(APPLICATION_RESULT_RANK),
+        ),
+    )
 
 
 def build_pages(records: list[dict], image_links: dict, templates: str, resources: str, output: str) -> None:
@@ -57,6 +76,15 @@ class MkDocs:
         self.programs = records[1]
         self.students = records[2]
         self.applications = records[3]
+
+        # SeaTable's reverse-link API order does not necessarily match the
+        # ordering displayed in its linked-record cards. Keep applicant pages
+        # consistent by grouping results explicitly; Python's stable sort
+        # preserves the API order among applications with the same result.
+        for student in self.students.values():
+            student["applications"] = sort_applications_by_result(
+                student["applications"], self.applications
+            )
 
         # Helper dicts to simplify rendering
         students_by_term = defaultdict(list)
@@ -129,11 +157,23 @@ class MkDocs:
         programs_dir = self.docs_path / "programs"
         programs_dir.mkdir(exist_ok=True)
 
+        complete_applications = []
+        for application in self.applications.values():
+            student_links = application.get("student") or []
+            program_links = application.get("program") or []
+            if len(student_links) != 1 or len(program_links) != 1:
+                print(
+                    f"[WARN] Skipping incomplete {application.get('a_id', application.get('_id'))}: "
+                    f"expected one student and one program link"
+                )
+                continue
+            complete_applications.append(application)
+
         # Individual program pages
         for program in self.programs.values():
             # Helper list for correctly sorting applications_by_term
             program_applications = []
-            for application in self.applications.values():
+            for application in complete_applications:
                 if application["program"][0]["row_id"] == program["_id"]:
                     student = self.students[application["student"][0]["row_id"]]
                     program_applications.append((student["term"], student["name"], application))
