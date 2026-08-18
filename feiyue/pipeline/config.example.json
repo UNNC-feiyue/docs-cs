@@ -1,0 +1,18 @@
+{
+  "server": "https://cloud.seatable.io",
+  "term": "2026 Fall",
+  "output_dir": "generated",
+  "font_regular": "C:/Windows/Fonts/msyh.ttc",
+  "font_bold": "C:/Windows/Fonts/msyhbd.ttc",
+  "contact_candidates": [
+    "contact",
+    "contact_info",
+    "contact information",
+    "联系方式",
+    "email",
+    "邮箱",
+    "wechat",
+    "微信"
+  ],
+  "timeout_seconds": 45
+}

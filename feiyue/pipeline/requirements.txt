@@ -1,0 +1,5 @@
+requests>=2.32,<3
+python-dotenv>=1.1,<2
+reportlab>=4.4,<5
+Pillow>=11,<13
+pypdf>=6,<7

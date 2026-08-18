@@ -1,0 +1,17 @@
+﻿.env
+.env.*
+config.json
+.venv/
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.log
+generated/
+dist/
+build/
+*.pdf
+*.aux
+*.out
+*.toc
